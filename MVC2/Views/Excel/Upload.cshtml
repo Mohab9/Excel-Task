@@ -1,0 +1,110 @@
+﻿@{
+    ViewData["Title"] = "Upload Excel";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .upload-card {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 30px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #343a40;
+            margin-bottom: 20px;
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+        }
+
+            .btn-custom:hover {
+                background-color: #0056b3;
+                color: white;
+            }
+
+        .table-responsive {
+            margin-top: 30px;
+        }
+
+        .alert {
+            margin-top: 20px;
+        }
+
+        .file-name {
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="upload-card">
+            <h2 class="text-center">Upload Your Excel Sheet</h2>
+            <form asp-controller="Excel" asp-action="Upload" enctype="multipart/form-data" method="post">
+                <div class="form-group">
+                    <label class="form-label" for="file">Select Excel File:</label>
+                    <input type="file" name="file" class="form-control" required />
+                </div>
+                <button type="submit" class="btn btn-custom btn-lg btn-block">Upload</button>
+            </form>
+
+            @if (ViewBag.FileName != null)
+            {
+                <h3 class="mt-4">Uploaded File: <span class="file-name">@ViewBag.FileName</span></h3>
+            }
+
+            @if (ViewBag.ExcelTable != null)
+            {
+                <div class="table-responsive">
+                    @Html.Raw(ViewBag.ExcelTable)
+                </div>
+            }
+
+            @if (ViewBag.Message != null)
+            {
+                <div class="alert alert-success">
+                    @ViewBag.Message
+                </div>
+            }
+
+            @if (ViewBag.TotalSum != null)
+            {
+                <div class="alert alert-info">
+                    <strong>Sum Of Total Value After Taxing: </strong>@ViewBag.TotalSum
+                </div>
+            }
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Your Company Name. All Rights Reserved.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
